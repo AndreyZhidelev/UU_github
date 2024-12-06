@@ -34,6 +34,3 @@ print(is_contains('Urban', ['ban', 'BaNaN', 'urBAN']))  # Urban ~ urBAN
 print(is_contains('cycle', ['recycleng', 'cyclic']))  # No matches
 print(is_contains('Avi', ['AV', 'Garage', 'Aviation']))  # 1 matches
 print(calls)
-
-
-На вот тебе
