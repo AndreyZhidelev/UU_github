@@ -40,15 +40,27 @@ class House:
         return self.number_of_floors != other.number_of_floors
 
     def __add__(self, other):
-        if not isinstance(self, int):
-            raise TypeError("Количество этажей должно быть задано целым числом!")
-
+        if not isinstance(other, (int, House)):
+            raise ArithmeticError("Количество этажей должно быть задано типом int или объектом House!")
         self.number_of_floors += value
         return self
 
-    def __radd__(self, value):
+    def __radd__(self, other):
+        if not isinstance(other, (int, House)):
+            raise TypeError("Количество этажей должно быть задано типом int или объектом House!")
         self.number_of_floors += value
         return self
+
+    def __iadd__(self, other):
+        print("__iadd__")
+        if not isinstance(other, (int, Clock)):
+            raise ArithmeticError("Количество этажей должно быть задано типом int или объектом House!")
+
+        sc = other if isinstance(other, int) else other.seconds
+        self.seconds += sc
+
+        return self
+
 
 
 h1 = House('ЖК Эльбрус', 10)
@@ -57,18 +69,18 @@ h2 = House('ЖК Акация', 20)
 print(h1)
 print(h2)
 
-# # __eq__
-# print(h1 == h2)
-#
-# # __add__
-# h1 = h1 + 10
-# print(h1)
-# print(h1 == h2)
-#
-# # __iadd__
-# h1 += 10
-# print(h1)
-#
+# __eq__
+print(h1 == h2)
+
+# __add__
+h1 = h1 + 10
+print(h1)
+print(h1 == h2)
+
+# __iadd__
+h1 += 10
+print(h1)
+
 # # __radd__
 # h2 = 10 + h2
 # print(h2)
