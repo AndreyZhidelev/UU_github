@@ -39,28 +39,36 @@ class House:
     def __ne__(self, other):
         return self.number_of_floors != other.number_of_floors
 
-    def __add__(self, other):
-        if not isinstance(other, (int, House)):
+    def __add__(self, value):
+        if not isinstance(value, (int, House)):
             raise ArithmeticError("Количество этажей должно быть задано типом int или объектом House!")
-        self.number_of_floors += value
+        s_value = value if isinstance(value, int) else value.number_of_floors
+        self.number_of_floors += s_value
         return self
 
-    def __radd__(self, other):
-        if not isinstance(other, (int, House)):
-            raise TypeError("Количество этажей должно быть задано типом int или объектом House!")
-        self.number_of_floors += value
+    def __iadd__(self, value):
+        # Вариант решения 1
+        # if not isinstance(value, (int, House)):
+        #     raise ArithmeticError("Количество этажей должно быть задано типом int или объектом House!")
+        # sc = value if isinstance(value, int) else value.number_of_floors
+        # self.number_of_floors += sc
+        # return self
+
+        # Вариант решения 2
+        self.__add__(value)
         return self
 
-    def __iadd__(self, other):
-        print("__iadd__")
-        if not isinstance(other, (int, Clock)):
-            raise ArithmeticError("Количество этажей должно быть задано типом int или объектом House!")
+    def __radd__(self, value):
+        # # Вариант решения 1
+        # if not isinstance(value, (int, House)):
+        #     raise ArithmeticError("Количество этажей должно быть задано типом int или объектом House!")
+        # sc = value if isinstance(value, int) else value.number_of_floors
+        # self.number_of_floors += value
+        # return self
 
-        sc = other if isinstance(other, int) else other.seconds
-        self.seconds += sc
-
+        # Вариант решения 2
+        self.__add__(value)
         return self
-
 
 
 h1 = House('ЖК Эльбрус', 10)
@@ -81,22 +89,21 @@ print(h1 == h2)
 h1 += 10
 print(h1)
 
-# # __radd__
-# h2 = 10 + h2
-# print(h2)
-#
-# # __gt__
-# print(h1 > h2)
-#
-# # __ge__
-# print(h1 >= h2)
-#
-# # __lt__
-# print(h1 < h2)
-#
-# # __le__
-# print(h1 <= h2)
-#
-# # __ne__
-# print(h1 != h2)
+# __radd__
+h2 = 10 + h2
+print(h2)
 
+# __gt__
+print(h1 > h2)
+
+# __ge__
+print(h1 >= h2)
+
+# __lt__
+print(h1 < h2)
+
+# __le__
+print(h1 <= h2)
+
+# __ne__
+print(h1 != h2)
