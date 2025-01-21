@@ -1,8 +1,19 @@
 class House:
+    houses_history = []
+
+    def __new__(cls, name, number_of_floors):
+        # print('__new__')
+        cls.houses_history.append(name)
+        return super().__new__(cls)
+
     def __init__(self, name, number_of_floors):
         # print('__init__')
         self.name = name
         self.number_of_floors = number_of_floors
+
+    def __del__(self):
+        print(f'{str(self.name)} снесён, но он останется в истории')
+        # House.houses_history.remove(self.name) --> Если надо удалить элемент из списка
 
     def go_to(self, new_floor):
         floor_by_floor = ''
@@ -72,39 +83,15 @@ class House:
         return self
 
 
+#Пример выполнения программы:
 h1 = House('ЖК Эльбрус', 10)
+print(House.houses_history)
 h2 = House('ЖК Акация', 20)
+print(House.houses_history)
+h3 = House('ЖК Матрёшки', 20)
+print(House.houses_history)
 
-print(h1)
-print(h2)
-
-# __eq__
-print(h1 == h2)
-
-# __add__
-h1 = h1 + 10
-print(h1)
-print(h1 == h2)
-
-# __iadd__
-h1 += 10
-print(h1)
-
-# __radd__
-h2 = 10 + h2
-print(h2)
-
-# __gt__
-print(h1 > h2)
-
-# __ge__
-print(h1 >= h2)
-
-# __lt__
-print(h1 < h2)
-
-# __le__
-print(h1 <= h2)
-
-# __ne__
-print(h1 != h2)
+# Удаление объектов
+del h2
+del h3
+print(House.houses_history)
